@@ -7,10 +7,11 @@ def post_list(request):
     myname = '장고웹프레임워크'
 
     http_method = request.method ##객체를 받을 변수, request.method = 속성 # get or post
-
-    return HttpResponse('''  #httpresponse 객체를 생성하겠다
+    # httpresponse 객체를 생성하겠다
+    return HttpResponse('''  
         <h2>Welcome {name}</h2>
-        <p>Http Method {method}</p>         #응답결과로 준다!
-        <p>Http Encoding {encod}</p>
+        <p>Http Method {method}</p>         
+        <p>Http Headers {hed}</p>
         <p>Http Path {mypath}
-    '''.format(name=myname,method=http_method,encod=request.encoding,mypath=request.path))
+    '''.format(name=myname,method=http_method,hed=request.headers['user-agent'],mypath=request.path))
+    #응답결과로 준다!
