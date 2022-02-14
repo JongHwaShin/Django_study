@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+        <div class="post">
+            <div class="date">
+                <p>published: {{ post_key.published_date }}</p> <!-- 여기 post는 post_detail 함수에있는 마지막 딕셔너리에있ㄴ느거 -->
+            </div>
+            <h1><a href="">{{ post_key.title }}</a></h1>
+            <p>{{ post_key.text| linebreaksbr }}</p>
+        </div>
+
+{% endblock %}
