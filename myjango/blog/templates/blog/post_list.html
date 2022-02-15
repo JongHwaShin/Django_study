@@ -6,6 +6,7 @@
             <div class="date">
                 <p>published: {{ post.published_date }}</p>
             </div>
+            <!-- post_detail 은 urls.py 에 있는 name = post_detail -->
             <h1><a href="{% url 'post_detail' pk=post.pk%}">{{ post.title }}</a></h1> <!--타이틀을 누르면 가게끔 -->
             <p>{{ post.text| linebreaksbr }}</p>
         </div>

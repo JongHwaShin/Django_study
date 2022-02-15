@@ -11,6 +11,9 @@
 </head>
 <body>
     <div class="page-header">
+        <a href="{% url 'post_new' %}" class="top-menu">
+        <span class="glyphicon glyphicon-plus"></span></a>
+        <!-- 밑에 나온 post_list_home은 urls.py에 있는 name = post_list_home -->
         <h1><a href="{% url 'post_list_home' %}">Django Blog</a></h1> <!-- 여기서 alias name = post_list_home 으로 주고 url.py에 name 에다가 post_list_home을 넣는다-->
     </div>
     <!-- HTML 주석 -->
