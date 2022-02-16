@@ -1,11 +1,26 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+        <!-- remove는 javascript사용 -->
+        <script>
+
+           function post_remove(){
+               var result = confirm("해당 Post를 삭제하시겠습니까?");
+               if(result){ //확인을 누른다면
+                   var remove_url = "{% url 'post_remove' pk=post_key.pk %}";
+                   document.location.href = remove_url;
+               }
+           }
+        </script>
 
         <div class="post">
             <div class="date">
                 <p>published: {{ post_key.published_date }}</p> <!-- 여기 post는 post_detail 함수에있는 마지막 딕셔너리에있ㄴ느거 -->
             </div>
+            <a class="btn btn-default" href="{% url 'post_edit' pk=post_key.pk %}">
+                <span class="glyphicon glyphicon-pencil"></span></a>
+            <a class="btn btn-default" href="#" onclick="post_remove()">
+                <span class="glyphicon glyphicon-remove"></span></a>
             <h1><a href="">{{ post_key.title }}</a></h1>
             <p>{{ post_key.text| linebreaksbr }}</p>
         </div>

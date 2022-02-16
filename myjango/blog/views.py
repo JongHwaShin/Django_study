@@ -1,5 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+
+
 from .models import Post
 from django.utils import timezone
 from .forms import PostModelForm,PostForm
@@ -43,6 +46,7 @@ def post_detail(request,pk):
 
 
 # 글 등록(Form)사용
+@login_required
 def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
@@ -84,3 +88,25 @@ def post_new_modelform(request):
 
 
     return render(request,'blog/post_edit.html',{'postform':post_form})
+
+
+#글 수정(ModelForm)사용
+def post_edit(request,pk):
+    post = get_object_or_404(Post,pk=pk)
+    if request.method == "POST":
+        form = PostModelForm(request.POST,instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('post_detail',pk=post.pk)
+    else:
+        form = PostModelForm(instance=post)
+    return render(request, 'blog/post_edit.html', {'postform': form})
+
+#글삭제
+def post_remove(request,pk):
+    post = Post.objects.get(pk=pk)
+    post.delete()
+    return redirect('post_list_home') ## post_list_home 은 urls.py에 있는 'post_list_home을 가져옴
